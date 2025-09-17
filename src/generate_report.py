@@ -16,16 +16,12 @@ def generate_report_with_gemini(prompt: str, gemini_api_key: str) -> str:
     # grounding有効化を切り替え
     use_grounding = True
     if use_grounding and _HAS_GENAI:
-        # google-generativeaiパッケージによるgrounding生成
+        # google-generativeaiパッケージによるgrounding生成（新API仕様）
         print("[Gemini][LOG] Google検索（grounding）を利用して生成しました", flush=True)
-        client = genai.Client()
+        genai.configure(api_key=gemini_api_key)
+        model = genai.GenerativeModel("gemini-2.5-flash")
         grounding_tool = types.Tool(google_search=types.GoogleSearch())
-        config = types.GenerateContentConfig(tools=[grounding_tool])
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
-            config=config,
-        )
+        response = model.generate_content(prompt, tools=[grounding_tool])
         return response.text
     else:
         # 従来のREST API
