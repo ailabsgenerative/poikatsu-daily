@@ -1,0 +1,33 @@
+/* GitHub Pages風のシンプルなスタイル */
+body {
+  font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
+  background: #f6f8fa;
+  margin: 0;
+  padding: 0;
+}
+header, footer {
+  background: #24292f;
+  color: #fff;
+  padding: 1em 0;
+  text-align: center;
+}
+nav a {
+  color: #fff;
+  margin: 0 1em;
+  text-decoration: none;
+}
+.markdown-body {
+  max-width: 800px;
+  margin: 2em auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 2em;
+}
+h1, h2 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.3em;
+}
+ul {
+  padding-left: 1.5em;
+}
