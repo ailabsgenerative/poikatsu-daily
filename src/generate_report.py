@@ -17,8 +17,13 @@ def generate_report_with_gemini(prompt: str, gemini_api_key: str) -> str:
     # Geminiの返答からテキスト部分を抽出
     return result["candidates"][0]["content"]["parts"][0]["text"]
 
+import datetime
+
 if __name__ == "__main__":
-    prompt = os.environ.get("REPORT_PROMPT", "今日のポイ活最新情報をまとめてください")
+    base_prompt = os.environ.get("REPORT_PROMPT", "今日のポイ活最新情報をまとめてください")
     gemini_api_key = os.environ["GEMINI_API_KEY"]
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    # $(date +'%Y-%m-%d') の部分をシステム日付で置換
+    prompt = base_prompt.replace('$(date +\'%Y-%m-%d\')', today).replace('$(date +"%Y-%m-%d")', today)
     report = generate_report_with_gemini(prompt, gemini_api_key)
     print(report)

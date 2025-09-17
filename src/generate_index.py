@@ -1,12 +1,18 @@
 import os
 from glob import glob
 
+
+import markdown
+
 def generate_index_html(data_dir: str, output_path: str):
     files = sorted(glob(os.path.join(data_dir, '*.md')), reverse=True)
     items = []
     for f in files:
         date = os.path.splitext(os.path.basename(f))[0]
-        items.append(f'<li><a href="data/{date}.md">{date}の日報</a></li>')
+        with open(f, encoding='utf-8') as mdfile:
+            md_content = mdfile.read()
+            html_content = markdown.markdown(md_content, extensions=['extra', 'tables'])
+        items.append(f'<section class="report"><h3>{date}の日報</h3>{html_content}</section>')
     html = f'''<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -24,9 +30,7 @@ def generate_index_html(data_dir: str, output_path: str):
   </header>
   <main class="markdown-body">
     <h2>最新レポート一覧</h2>
-    <ul>
-      {''.join(items)}
-    </ul>
+    {''.join(items)}
   </main>
   <footer>
     <p>&copy; 2025 ポイ活日報</p>
