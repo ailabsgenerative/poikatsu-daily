@@ -5,6 +5,7 @@ try:
     import google.generativeai as genai
     from google.generativeai import types
     _HAS_GENAI = True
+    print("[Gemini][DEBUG] types属性一覧:", dir(types), flush=True)
 except ImportError:
     _HAS_GENAI = False
 
