@@ -1,3 +1,5 @@
+import google.generativeai as genai
+print("[Gemini][DEBUG] google-generativeai version:", genai.__version__, flush=True)
 import os
 
 
