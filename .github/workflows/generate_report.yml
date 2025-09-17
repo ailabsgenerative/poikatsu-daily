@@ -30,9 +30,6 @@ jobs:
       - name: Ensure data directory exists
         run: mkdir -p data
 
-      - name: Set Gemini Grounding
-        run: echo "GEMINI_GROUNDING=true" >> $GITHUB_ENV
-
       - name: Generate report with Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
