@@ -13,8 +13,8 @@ def generate_report_with_gemini(prompt: str, gemini_api_key: str) -> str:
     Gemini APIと対話し、レポート用コンテンツを生成する（v1beta gemini-2.0-flash対応）
     grounding（Google検索ツール）有効化もサポート
     """
-    # 環境変数でgrounding有効化を切り替え
-    use_grounding = os.environ.get("GEMINI_GROUNDING", "false").lower() == "true"
+    # grounding有効化を切り替え
+    use_grounding = true
     if use_grounding and _HAS_GENAI:
         # google-generativeaiパッケージによるgrounding生成
         print("[Gemini] grounding有効: prompt=", prompt, flush=True)
