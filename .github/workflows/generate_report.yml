@@ -75,3 +75,7 @@ jobs:
           git add index.html
           git commit -m "Update index.html" || echo "No changes to commit"
           git push
+
+      - name: Generate individual report HTMLs
+        run: |
+          python src/generate_index.py
