@@ -83,3 +83,6 @@ jobs:
       - name: Generate individual report HTMLs
         run: |
           python src/generate_index.py
+
+      - name: Set Gemini Grounding
+        run: echo "GEMINI_GROUNDING=true" >> $GITHUB_ENV
