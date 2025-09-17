@@ -3,9 +3,9 @@ import requests
 
 def generate_report_with_gemini(prompt: str, gemini_api_key: str) -> str:
     """
-    Gemini APIと対話し、レポート用コンテンツを生成する
+    Gemini APIと対話し、レポート用コンテンツを生成する（v1beta gemini-2.0-flash対応）
     """
-    endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+    endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
     headers = {"Content-Type": "application/json"}
     data = {
         "contents": [{"parts": [{"text": prompt}]}]
