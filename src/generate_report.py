@@ -17,6 +17,7 @@ def generate_report_with_gemini(prompt: str, gemini_api_key: str) -> str:
     use_grounding = os.environ.get("GEMINI_GROUNDING", "false").lower() == "true"
     if use_grounding and _HAS_GENAI:
         # google-generativeaiパッケージによるgrounding生成
+        print("[Gemini] grounding有効: prompt=", prompt, flush=True)
         client = genai.Client()
         grounding_tool = types.Tool(google_search=types.GoogleSearch())
         config = types.GenerateContentConfig(tools=[grounding_tool])
@@ -25,6 +26,8 @@ def generate_report_with_gemini(prompt: str, gemini_api_key: str) -> str:
             contents=prompt,
             config=config,
         )
+        print("[Gemini] grounding応答:", response, flush=True)
+        print("[Gemini] grounding応答テキスト:", response.text, flush=True)
         return response.text
     else:
         # 従来のREST API
@@ -34,9 +37,12 @@ def generate_report_with_gemini(prompt: str, gemini_api_key: str) -> str:
             "contents": [{"parts": [{"text": prompt}]}]
         }
         params = {"key": gemini_api_key}
+        print("[Gemini] RESTリクエスト:", data, flush=True)
         response = requests.post(endpoint, headers=headers, params=params, json=data)
+        print("[Gemini] RESTレスポンス:", response.text, flush=True)
         response.raise_for_status()
         result = response.json()
+        print("[Gemini] REST抽出テキスト:", result["candidates"][0]["content"]["parts"][0]["text"], flush=True)
         return result["candidates"][0]["content"]["parts"][0]["text"]
 
 import datetime
