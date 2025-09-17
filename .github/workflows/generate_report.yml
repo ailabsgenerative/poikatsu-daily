@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
+      - name: Ensure data directory exists
+        run: mkdir -p data
+
       - name: Generate report with Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
